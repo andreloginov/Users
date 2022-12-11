@@ -13,7 +13,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void createUsersTable() {
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT ,name VARCHAR(20) NOT NULL, " +
+                    connection.prepareStatement("CREATE TABLE if not exists users (id INT PRIMARY KEY AUTO_INCREMENT ,name VARCHAR(20) NOT NULL, " +
                             "lastName VARCHAR(20) NOT NULL, age INT NOT NULL);");
             preparedStatement.executeUpdate();
             preparedStatement.executeUpdate("AlTER TABLE users AUTO_INCREMENT = 1;");
@@ -31,7 +31,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void dropUsersTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DROP TABLE users");
+            statement.executeUpdate("DROP TABLE if exists users");
             connection.commit();
         }
         catch(Exception e) {
@@ -45,7 +45,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into users value(default, ?, ?, ?);");
+                    connection.prepareStatement("insert into users values(default, ?, ?, ?)");
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
