@@ -9,7 +9,7 @@ public class Util {
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Vfrcbv12345";
-    protected Connection getConnection() {
+    public static Connection getConnection() {
         Connection connection;
         try {
             Class.forName(DB_DRIVER);
@@ -20,18 +20,4 @@ public class Util {
         }
         return connection;
     }
-    /*public static Connection getConnect() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return connection; dfd
-    }*/
 }
