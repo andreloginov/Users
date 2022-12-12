@@ -1,10 +1,12 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
-@Table
+import javax.persistence.*;
+
+@Table(name = "users")
+@Entity
 public class User {
     //f
     @Override
@@ -18,15 +20,17 @@ public class User {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private Byte age;
 
     public User() {

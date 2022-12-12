@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import jm.task.core.jdbc.util.Util;
 
-public class UserDaoJDBCImpl extends Util implements UserDao {
-    Connection connection = getConnection();
+public class UserDaoJDBCImpl  implements UserDao {
+    Connection connection = Util.getConnection();
     public UserDaoJDBCImpl() {
         // должен быть пустой
     }
     public void createUsersTable() {
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT ,name VARCHAR(20) NOT NULL, " +
+                    connection.prepareStatement("CREATE TABLE if not exists users (id INT PRIMARY KEY AUTO_INCREMENT ,name VARCHAR(20) NOT NULL, " +
                             "lastName VARCHAR(20) NOT NULL, age INT NOT NULL);");
             preparedStatement.executeUpdate();
             preparedStatement.executeUpdate("AlTER TABLE users AUTO_INCREMENT = 1;");
@@ -31,7 +31,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void dropUsersTable() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DROP TABLE users");
+            statement.executeUpdate("DROP TABLE if exists users");
             connection.commit();
         }
         catch(Exception e) {
