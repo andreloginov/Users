@@ -13,12 +13,13 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
+    private static Connection connection = null;
+    private static SessionFactory sessionFactory = null;
     private static final String URL = "jdbc:mysql://localhost:3306/mydbtest";
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Vfrcbv12345";
     public static Connection getConnection() {
-        Connection connection;
         try {
             Class.forName(DB_DRIVER);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -30,7 +31,6 @@ public class Util {
     }
 
     public static SessionFactory getSessionFactory() {
-        SessionFactory sessionFactory = null;
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
